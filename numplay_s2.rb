@@ -11,7 +11,6 @@ class Numplay
   end
   
   def mtx( h, base )
-#    puts "h = #{h}"
     return base if h == -1
 
     row = h / 9
@@ -37,23 +36,13 @@ class Numplay
       return base[row].include?(candidate) \
       || base.transpose[col].include?(candidate) \
       || numbers_square( row, col, base ).include?(candidate)
+
     else
       cond01 = base[row].include?(candidate)
       cond02 = base.transpose[col].include?(candidate)
       cond03 = numbers_square( row, col, base ).include?(candidate)
       cond04 = is_sum_difference?( row, col, base, candidate )
-
-#      if row == 2 && col == 3
-#        puts "(#{row}, #{col}) candi #{candidate} : #{@grouping[row][col]} 01 #{cond01}, 02 #{cond02}, 03 #{cond03}, 04 #{cond04}"
-#        pp base
-#      end
-
       return cond01 || cond02 || cond03 || cond04
-
-#      return base[row].include?(candidate) \
-#      || base.transpose[col].include?(candidate) \
-#      || numbers_square( row, col, base ).include?(candidate) \
-#      || is_sum_difference?( row, col, base )
     end
   end
 
@@ -72,10 +61,6 @@ class Numplay
     basedup = base.dup
     basedup[target_row][target_col] = candidate
     target_member = get_target_member( basedup, target_group )
-
-    if target_row == 2 && target_col == 3
-#      puts "g #{target_group} m #{target_member}"
-    end
 
     if target_member.any?(0)
       return false
@@ -109,7 +94,6 @@ class Numplay
         sum += base[row][col] if grouping[row][col] == target_group
       end
     end
-#    puts "Sum : #{sum} - #{target_group} -- (#{target_row},#{target_col})"
     sum
     
   end
